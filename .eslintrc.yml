@@ -52,7 +52,7 @@ rules:
   spaced-comment: error
   no-duplicate-imports: error
   prettier/prettier: warn
-  "@typescript-eslint/no-use-before-define": ["error"]
+  "@typescript-eslint/no-use-before-define": error
   arrow-body-style: 0
   import/no-extraneous-dependencies: ["error", { "devDependencies": ["**/vite.config*"] }]
 
@@ -118,12 +118,13 @@ overrides:
       spaced-comment: error
       no-duplicate-imports: error
       prettier/prettier: warn
-      "@typescript-eslint/no-use-before-define": ["error"]
+      "@typescript-eslint/no-use-before-define": error
       arrow-body-style: 0
       import/no-extraneous-dependencies: ["error", { "devDependencies": ["**/vite.config*"] }]
       jsx-a11y/click-events-have-key-events: 0
       react/react-in-jsx-scope: 0
       react/jsx-props-no-spreading: 0
+      react/jsx-no-useless-fragment: 0
       react/destructuring-assignment: 0
       react/require-default-props: ["error", { "functions": "defaultArguments" }]
       react-hooks/exhaustive-deps: 0

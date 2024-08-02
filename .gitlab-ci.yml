@@ -3,7 +3,7 @@ stages:
 
 check:
   stage: check
-  image: node:18.18.0-alpine
+  image: node:20.11.0-alpine
   before_script:
     # helyi függőségek feltelepítése
     - npm install
