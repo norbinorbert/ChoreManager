@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './styles/App.css'
 import { AdviceCard } from './components/AdviceCard';
+import { Header } from './components/Header';
 
 type Advice = {
   slip: {
@@ -26,14 +27,12 @@ function App() {
 
   return (
     <>
-      <div className="card">
-        <button onClick={addAdvice}>Get random advice</button>
-        <ul>
-          {advices.map((advice) => (
-            <AdviceCard key={advice.slip.id} advice={advice.slip.advice}></AdviceCard>
-          ))}
-        </ul>
-      </div>
+      <Header></Header>
+      <button onClick={addAdvice}>Get random advice</button>
+        {advices.map((advice) => (
+          <AdviceCard key={advice.slip.id} advice={advice.slip.advice} />
+        ))}
+      
     </>
   )
 }
