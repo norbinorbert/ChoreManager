@@ -1,21 +1,38 @@
-import { Dispatch, ReactElement, SetStateAction, useState } from 'react'
-import './App.css'
+import { useState } from 'react'
+import './styles/App.css'
 import { AdviceCard } from './components/AdviceCard';
 
+type Advice = {
+  slip: {
+    id: number,
+    advice: string
+  }
+}
+
 function App() {
-  const [cards, setCards] : [ReactElement[], Dispatch<SetStateAction<ReactElement[]>>] = useState([<></>])
+  const [advices, setAdvices] = useState<Advice[]>([])
 
   const addAdvice = async () => {
     const resp = await fetch('https://api.adviceslip.com/advice');
     const advice = await resp.json();
-    setCards(cards.concat(<AdviceCard advice={advice}></AdviceCard>));
+    for(let i=0; i<advices.length; i++){  
+      if(advices[i].slip.id === advice.slip.id){
+        addAdvice();
+        return;
+      }
+    }
+    setAdvices(advices.concat(advice));
   };
 
   return (
     <>
       <div className="card">
         <button onClick={addAdvice}>Get random advice</button>
-        {cards}
+        <ul>
+          {advices.map((advice) => (
+            <AdviceCard key={advice.slip.id} advice={advice.slip.advice}></AdviceCard>
+          ))}
+        </ul>
       </div>
     </>
   )
