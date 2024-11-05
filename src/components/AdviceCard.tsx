@@ -1,22 +1,16 @@
-import { Card, CardContent, Typography } from '@mui/material';
-import { useState } from 'react';
-import { CiHeart } from "react-icons/ci";
-import { FaHeart } from "react-icons/fa";
-  
-export function AdviceCard(props: {key: number, advice: string}) {
-    const changeHeart = () => {
-        setFilledHeart(!filledHeart);
-    }
-    const emptyHeart = <CiHeart size={42} color='pink' onClick={changeHeart}></CiHeart>;
-    const fullHeart = <FaHeart size={42} color='pink' onClick={changeHeart}></FaHeart>;
-    const [filledHeart, setFilledHeart] = useState(false);
-    
+import { Card, CardContent, IconButton, Typography } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+export function AdviceCard(props: { advice: string, isFavorite: boolean, toggleFavorite: () => void }) {
     return (
-    <Card>
-        <CardContent>
-            <Typography>{props.advice}</Typography>
-            {filledHeart ? fullHeart : emptyHeart}
-        </CardContent>
-    </Card>
+        <Card>
+            <CardContent>
+                <Typography>{props.advice}</Typography>
+                <IconButton onClick={props.toggleFavorite} color={props.isFavorite ? "secondary" : "default"}>
+                    {props.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>
+            </CardContent>
+        </Card>
     )
 }
