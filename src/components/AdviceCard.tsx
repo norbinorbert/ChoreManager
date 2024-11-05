@@ -5,9 +5,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 export function AdviceCard(props: { advice: string, isFavorite: boolean, toggleFavorite: () => void }) {
     return (
         <Card>
-            <CardContent>
+            <CardContent style={{ background: 'grey' }}>
                 <Typography>{props.advice}</Typography>
-                <IconButton onClick={props.toggleFavorite} color={props.isFavorite ? "secondary" : "default"}>
+                <IconButton onClick={props.toggleFavorite} color={props.isFavorite ? "error" : "default"}>
                     {props.isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
             </CardContent>

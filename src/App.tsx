@@ -18,23 +18,30 @@ type AdviceFromKeyword = {
 }
 
 function App() {
+  const [searchingForAdvice, setSearchingForAdvice] = useState(false);
   const [advices, setAdvices] = useState<Advice[]>([])
   const [showFavorites, setShowFavorites] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [noResults, setNoResults] = useState(false);
 
   const addAdvice = async () => {
-    const resp = await fetch('https://api.adviceslip.com/advice');
-    const json = await resp.json();
-    const advice = json.slip;
-    advice.favorite = false;
-    for (let i = 0; i < advices.length; i++) {
-      if (advices[i].id === advice.id) {
-        addAdvice();
-        return;
+    if (!searchingForAdvice) {
+      setNoResults(false);
+      setSearchingForAdvice(true);
+      const resp = await fetch('https://api.adviceslip.com/advice');
+      const json = await resp.json();
+      const advice = json.slip;
+      advice.favorite = false;
+      for (let i = 0; i < advices.length; i++) {
+        if (advices[i].id === advice.id) {
+          setSearchingForAdvice(false);
+          addAdvice();
+          return;
+        }
       }
+      setAdvices((advices) => [...advices, advice]);
+      setSearchingForAdvice(false);
     }
-    setAdvices((advices) => [...advices, advice]);
   };
 
   const toggleFavorite = (id: number) => {
@@ -77,7 +84,13 @@ function App() {
     <>
       <Header showFavorites={showFavorites} toggleFavorites={() => setShowFavorites(!showFavorites)} />
       <Form keyword={keyword} onKeywordChange={(event) => setKeyword(event.target.value)} onSearch={searchAdvice}></Form>
-      <Button variant="contained" onClick={addAdvice}>Get random advice</Button>
+      <Button
+        variant="contained"
+        onClick={addAdvice}
+        style={{ position: 'fixed', top: '6%', left: '80%' }}
+      >
+        Get random advice
+      </Button>
       {noResults ? (
         <Typography color="error">
           No advice found containing the keyword: "{keyword}"

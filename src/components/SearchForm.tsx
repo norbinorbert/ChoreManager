@@ -10,15 +10,16 @@ export function Form(props: {
         <>
             <TextField
                 label="Search by keyword"
-                variant="outlined"
+                variant='filled'
                 value={props.keyword}
                 onChange={props.onKeywordChange}
-                style={{ marginBottom: '20px', width: '100%' }}
+                style={{ position: 'fixed', top: '15%', left: '80%', background: 'lightgrey' }}
             />
             <Button
                 variant="contained"
                 color="primary"
                 onClick={props.onSearch}
+                style={{ position: 'fixed', top: '22.5%', left: '83%' }}
             >Search</Button>
         </>
     )
