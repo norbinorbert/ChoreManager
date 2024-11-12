@@ -18,29 +18,29 @@ type AdviceFromKeyword = {
 }
 
 function App() {
-  const [searchingForAdvice, setSearchingForAdvice] = useState(false);
   const [advices, setAdvices] = useState<Advice[]>([])
   const [showFavorites, setShowFavorites] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [noResults, setNoResults] = useState(false);
 
+  let searchingForAdvice = false;
   const addAdvice = async () => {
     if (!searchingForAdvice) {
       setNoResults(false);
-      setSearchingForAdvice(true);
+      searchingForAdvice = true;
       const resp = await fetch('https://api.adviceslip.com/advice');
       const json = await resp.json();
       const advice = json.slip;
       advice.favorite = false;
       for (let i = 0; i < advices.length; i++) {
         if (advices[i].id === advice.id) {
-          setSearchingForAdvice(false);
+          searchingForAdvice = false;
           addAdvice();
           return;
         }
       }
       setAdvices((advices) => [...advices, advice]);
-      setSearchingForAdvice(false);
+      searchingForAdvice = false;
     }
   };
 
@@ -82,7 +82,7 @@ function App() {
 
   return (
     <>
-      <Header showFavorites={showFavorites} toggleFavorites={() => setShowFavorites(!showFavorites)} />
+      <Header showFavorites={showFavorites} toggleFavorites={() => setShowFavorites((localShowFavorites) => !localShowFavorites)} />
       <Form keyword={keyword} onKeywordChange={(event) => setKeyword(event.target.value)} onSearch={searchAdvice}></Form>
       <Button
         variant="contained"
