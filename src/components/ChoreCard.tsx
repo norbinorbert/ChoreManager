@@ -3,6 +3,8 @@ import { Chore } from '../types/choreTypes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Cancel, CheckCircle } from '@mui/icons-material';
 import { useDeleteChore } from '../hooks/useChores';
+import { useState } from 'react';
+import { ConfirmDialog } from './ConfirmDialog';
 
 export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
   const { id } = useParams();
@@ -10,8 +12,18 @@ export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
   const { showDescription } = props;
   const navigate = useNavigate();
   const deleteChore = useDeleteChore(Number(id));
+  const [open, setOpen] = useState(false);
 
   const handleDelete = () => {
+    setOpen(true);
+  };
+
+  const handleNo = () => {
+    setOpen(false);
+  };
+
+  const handleYes = () => {
+    setOpen(false);
     deleteChore.mutate(Number(id), {
       onSuccess: () => navigate(`/chores`),
     });
@@ -45,6 +57,12 @@ export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
             Details
           </Button>
         )}
+        <ConfirmDialog
+          open={open}
+          title="Are you sure you want to delete the chore?"
+          handleNo={handleNo}
+          handleYes={handleYes}
+        />
       </CardActions>
     </Card>
   );

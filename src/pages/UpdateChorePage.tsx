@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ChoreFormFields from '../components/ChoreForm';
+import ChoreFormFields from '../components/ChoreFormFields';
 import { useChore, useUpdateChore } from '../hooks/useChores';
 import { Alert, CircularProgress } from '@mui/material';
 import { UpdateChore } from '../types/choreTypes';
