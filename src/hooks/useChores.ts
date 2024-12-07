@@ -18,7 +18,7 @@ export function useChore(id: number) {
 
 export function useCreateChore(chore: NewChore) {
   const queryClient = useQueryClient();
-  return useMutation<Chore, unknown, NewChore>({
+  return useMutation<Chore, { response: { data: string } }, NewChore>({
     mutationFn: () => createChore(chore),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['chores'] });
@@ -28,7 +28,7 @@ export function useCreateChore(chore: NewChore) {
 
 export function useUpdateChore(id: number, chore: UpdateChore) {
   const queryClient = useQueryClient();
-  return useMutation<unknown, unknown, { id: number; chore: UpdateChore }>({
+  return useMutation<unknown, { response: { data: string } }, { id: number; chore: UpdateChore }>({
     mutationFn: () => updateChore(id, chore),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ['chore', id] });

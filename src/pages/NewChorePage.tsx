@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Chore, NewChore } from '../types/choreTypes';
 import ChoreFormFields from '../components/ChoreForm';
 import { useCreateChore } from '../hooks/useChores';
+import { Alert, CircularProgress } from '@mui/material';
 
 export function NewChorePage() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export function NewChorePage() {
     deadline: new Date(),
     priorityLevel: 1,
   });
-  const createChore = useCreateChore(newChore);
+  const { mutate, isPending, isError, error, isSuccess } = useCreateChore(newChore);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewChore((newChore) => {
@@ -20,19 +21,34 @@ export function NewChorePage() {
     });
   };
 
+  const [newId, setNewId] = useState(0);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createChore.mutate(newChore, {
-      onSuccess: (createdChore: Chore) => navigate(`/chores/${createdChore.id}`),
+    mutate(newChore, {
+      onSuccess: (createdChore: Chore) => {
+        setNewId(createdChore.id);
+      },
     });
   };
 
+  if (isSuccess) {
+    return navigate(`/chores/${newId}`);
+  }
+
   return (
-    <ChoreFormFields
-      choreInfo={newChore}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      submitLabel="Create"
-    />
+    <>
+      <ChoreFormFields
+        choreInfo={newChore}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        submitLabel="Create"
+      />
+      {isPending && <CircularProgress />}
+      {isError && (
+        <Alert severity="error" sx={{ marginTop: '15px' }}>
+          {error.response.data}
+        </Alert>
+      )}
+    </>
   );
 }

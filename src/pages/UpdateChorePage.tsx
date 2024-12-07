@@ -8,8 +8,10 @@ import { UpdateChore } from '../types/choreTypes';
 export function UpdateChorePage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useChore(Number(id));
-  const chore = data;
+  const result = useChore(Number(id));
+  const chore = result.data;
+  const isLoading = result.isLoading;
+  const fetchError = result.isError;
 
   const [updatedChore, setUpdatedChore] = useState<UpdateChore>({
     title: '',
@@ -22,11 +24,7 @@ export function UpdateChorePage() {
     if (chore) setUpdatedChore(chore);
   }, [chore]);
 
-  const updateChore = useUpdateChore(Number(id), updatedChore);
-
-  if (isLoading) return <CircularProgress />;
-
-  if (isError || !chore) return <Alert severity="error">Error fetching chore.</Alert>;
+  const { mutate, isPending, isError, error } = useUpdateChore(Number(id), updatedChore);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedChore((updatedChore) => {
@@ -40,20 +38,27 @@ export function UpdateChorePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateChore.mutate(
-      { id: Number(id), chore: updatedChore },
-      {
-        onSuccess: () => navigate(`/chores/${id}`),
-      },
-    );
+    mutate({ id: Number(id), chore: updatedChore }, { onSuccess: () => navigate(`/chores/${id}`) });
   };
 
+  if (isLoading) return <CircularProgress />;
+
+  if (fetchError || !chore) return <Alert severity="error">Error fetching chore.</Alert>;
+
   return (
-    <ChoreFormFields
-      choreInfo={updatedChore}
-      handleChange={handleChange}
-      handleSubmit={handleSubmit}
-      submitLabel="Update"
-    />
+    <>
+      <ChoreFormFields
+        choreInfo={updatedChore}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        submitLabel="Update"
+      />
+      {isPending && <CircularProgress />}
+      {isError && (
+        <Alert severity="error" sx={{ marginTop: '15px' }}>
+          {error.response.data}
+        </Alert>
+      )}
+    </>
   );
 }

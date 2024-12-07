@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './styles/App.css';
 import { HomePage } from './pages/HomePage';
 import { ToDoList } from './pages/ToDoList';
 import { ChoreDetailsPage } from './pages/ChoreDetailsPage';

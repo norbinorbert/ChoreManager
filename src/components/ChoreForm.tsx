@@ -1,4 +1,5 @@
-import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
+import { Button, Box, FormControlLabel, Checkbox } from '@mui/material';
+import { StyledTextField } from '../styled_components/StyledTextField';
 
 type ChoreFormFieldsProps = {
   choreInfo: { title: string; description: string | null; deadline: Date; priorityLevel: number; done?: boolean };
@@ -11,40 +12,30 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
   const { choreInfo, handleChange, handleSubmit, submitLabel } = props;
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}>
-      <TextField
-        label="Title"
-        name="title"
-        value={choreInfo.title}
-        onChange={handleChange}
-        variant="outlined"
-        required
-      />
-      <TextField
+      <StyledTextField label="Title" name="title" value={choreInfo.title} onChange={handleChange} required />
+      <StyledTextField
         label="Description"
         name="description"
         value={choreInfo.description}
         onChange={handleChange}
-        variant="outlined"
         multiline
         rows={4}
       />
-      <TextField
+      <StyledTextField
         label="Deadline"
         name="deadline"
         type="date"
         value={choreInfo.deadline}
         onChange={handleChange}
         slotProps={{ inputLabel: { shrink: true } }}
-        variant="outlined"
         required
       />
-      <TextField
+      <StyledTextField
         label="Priority Level"
         name="priorityLevel"
         type="number"
         value={choreInfo.priorityLevel}
         onChange={handleChange}
-        variant="outlined"
         slotProps={{ htmlInput: { min: 1 } }}
         required
       />
