@@ -6,6 +6,7 @@ import { ChoreDetailsPage } from './pages/ChoreDetailsPage';
 import { NewChorePage } from './pages/NewChorePage';
 import { UpdateChorePage } from './pages/UpdateChorePage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { NavigationBar } from './components/NavigationBar';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <NavigationBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/chores" element={<ToDoList />} />

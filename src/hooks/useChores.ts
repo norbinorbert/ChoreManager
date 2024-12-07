@@ -1,6 +1,6 @@
-import { getChore, getChores } from '../requests/choreRequests';
-import { Chore } from '../types/choreTypes';
-import { useQuery } from '@tanstack/react-query';
+import { createChore, deleteChore, getChore, getChores, updateChore } from '../requests/choreRequests';
+import { Chore, NewChore, UpdateChore } from '../types/choreTypes';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useChores() {
   return useQuery<Chore[]>({
@@ -16,33 +16,33 @@ export function useChore(id: number) {
   });
 }
 
-// export function useCreateChore() {
-//   const queryClient = useQueryClient();
-//   return useMutation<Chore, unknown, NewChore>((newChore) => choreApi.post('/', newChore).then((res) => res.data), {
-//     onSuccess: () => {
-//       queryClient.invalidateQueries('chores');
-//     },
-//   });
-// }
+export function useCreateChore(chore: NewChore) {
+  const queryClient = useQueryClient();
+  return useMutation<Chore, unknown, NewChore>({
+    mutationFn: () => createChore(chore),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chores'] });
+    },
+  });
+}
 
-// export function useUpdateChore() {
-//   const queryClient = useQueryClient();
-//   return useMutation<Chore, unknown, { id: number; chore: UpdateChore }>(
-//     ({ id, chore }) => choreApi.patch(`/${id}`, chore).then((res) => res.data),
-//     {
-//       onSuccess: (_, { id }) => {
-//         queryClient.invalidateQueries(['chore', id]);
-//         queryClient.invalidateQueries('chores');
-//       },
-//     },
-//   );
-// }
+export function useUpdateChore(id: number, chore: UpdateChore) {
+  const queryClient = useQueryClient();
+  return useMutation<unknown, unknown, { id: number; chore: UpdateChore }>({
+    mutationFn: () => updateChore(id, chore),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ['chore', id] });
+      queryClient.invalidateQueries({ queryKey: ['chores'] });
+    },
+  });
+}
 
-// export function useDeleteChore() {
-//   const queryClient = useQueryClient();
-//   return useMutation<void, unknown, string>((id) => choreApi.delete(`/${id}`).then(() => {}), {
-//     onSuccess: () => {
-//       queryClient.invalidateQueries('chores');
-//     },
-//   });
-// }
+export function useDeleteChore(id: number) {
+  const queryClient = useQueryClient();
+  return useMutation<unknown, unknown, number>({
+    mutationFn: () => deleteChore(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chores'] });
+    },
+  });
+}

@@ -2,37 +2,46 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ChoreFormFields from '../components/ChoreForm';
 import { useChore, useUpdateChore } from '../hooks/useChores';
-import { CircularProgress } from '@mui/material';
+import { Alert, CircularProgress } from '@mui/material';
 import { UpdateChore } from '../types/choreTypes';
 
 export function UpdateChorePage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const updateChore = useUpdateChore();
-  const chore = useChore(Number(id)).data;
+  const { data, isLoading, isError } = useChore(Number(id));
+  const chore = data;
 
-  const [formState, setFormState] = useState<UpdateChore>({
+  const [updatedChore, setUpdatedChore] = useState<UpdateChore>({
     title: '',
     description: '',
     deadline: new Date(),
-    priorityLevel: 0,
+    priorityLevel: 1,
     done: false,
   });
-
   useEffect(() => {
-    if (chore) setFormState(chore);
+    if (chore) setUpdatedChore(chore);
   }, [chore]);
 
-  if (!chore) return <CircularProgress />;
+  const updateChore = useUpdateChore(Number(id), updatedChore);
+
+  if (isLoading) return <CircularProgress />;
+
+  if (isError || !chore) return <Alert severity="error">Error fetching chore.</Alert>;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    setUpdatedChore((updatedChore) => {
+      if (e.target.name === 'done') {
+        return { ...updatedChore, [e.target.name]: e.target.checked };
+      } else {
+        return { ...updatedChore, [e.target.name]: e.target.value };
+      }
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updateChore.mutate(
-      { id: Number(id), chore: formState },
+      { id: Number(id), chore: updatedChore },
       {
         onSuccess: () => navigate(`/chores/${id}`),
       },
@@ -41,7 +50,7 @@ export function UpdateChorePage() {
 
   return (
     <ChoreFormFields
-      formState={formState}
+      choreInfo={updatedChore}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       submitLabel="Update"

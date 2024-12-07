@@ -1,3 +1,5 @@
+import { Typography } from '@mui/material';
+
 export function HomePage() {
-  return <></>;
+  return <Typography variant="h2">Welcome to the ChoreManager</Typography>;
 }
