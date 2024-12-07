@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Chore, NewChore } from '../types/choreTypes';
 import ChoreFormFields from '../components/ChoreForm';
@@ -31,9 +31,11 @@ export function NewChorePage() {
     });
   };
 
-  if (isSuccess) {
-    return navigate(`/chores/${newId}`);
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(`/chores/${newId}`);
+    }
+  }, [isSuccess, newId, navigate]);
 
   return (
     <>
