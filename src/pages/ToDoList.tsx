@@ -4,9 +4,9 @@ import { useChores } from '../hooks/useChores';
 import { ChoreCard } from '../components/ChoreCard';
 
 export function ToDoList() {
-  const { chores, isLoading } = useChores();
+  const chores = useChores().data;
 
-  if (isLoading) return <CircularProgress />;
+  if (!chores) return <CircularProgress />;
 
   return (
     <div>
@@ -15,7 +15,7 @@ export function ToDoList() {
       </Button>
       <Grid2 container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {chores.map((chore) => (
-          <Grid2 key={chore.id} spacing={4}>
+          <Grid2 key={chore.id}>
             <ChoreCard chore={chore} showDescription={false} />
           </Grid2>
         ))}

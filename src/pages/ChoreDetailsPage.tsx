@@ -1,12 +1,13 @@
 import { CircularProgress, Grid2 } from '@mui/material';
 import { ChoreCard } from '../components/ChoreCard';
-import { useChore } from '../hooks/useChore';
+import { useChore } from '../hooks/useChores';
+import { useParams } from 'react-router-dom';
 
 export function ChoreDetailsPage() {
-  const id = window.location.pathname.split('/').pop();
-  const { chore, isLoading } = useChore(id);
+  const { id } = useParams();
+  const chore = useChore(Number(id)).data;
 
-  if (isLoading) return <CircularProgress />;
+  if (!chore) return <CircularProgress />;
 
   return (
     <Grid2>
