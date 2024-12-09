@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ChoreFormFields from '../components/ChoreFormFields';
 import { useChore, useUpdateChore } from '../hooks/useChores';
 import { Alert, CircularProgress } from '@mui/material';
@@ -26,7 +26,7 @@ export function UpdateChorePage() {
 
   const { mutate, isPending, isError, error } = useUpdateChore(Number(id), updatedChore);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedChore((updatedChore) => {
       if (e.target.name === 'done') {
         return { ...updatedChore, [e.target.name]: e.target.checked };
@@ -34,12 +34,15 @@ export function UpdateChorePage() {
         return { ...updatedChore, [e.target.name]: e.target.value };
       }
     });
-  };
+  }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutate({ id: Number(id), chore: updatedChore }, { onSuccess: () => navigate(`/chores/${id}`) });
-  };
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      mutate({ id: Number(id), chore: updatedChore }, { onSuccess: () => navigate(`/chores/${id}`) });
+    },
+    [mutate, id, updatedChore, navigate],
+  );
 
   if (isLoading) return <CircularProgress />;
 

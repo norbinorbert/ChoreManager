@@ -3,7 +3,7 @@ import { Chore } from '../types/choreTypes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Cancel, CheckCircle } from '@mui/icons-material';
 import { useDeleteChore } from '../hooks/useChores';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ConfirmDialog } from './ConfirmDialog';
 
 export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
@@ -14,20 +14,20 @@ export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
   const deleteChore = useDeleteChore(Number(id));
   const [open, setOpen] = useState(false);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     setOpen(true);
-  };
+  }, []);
 
-  const handleNo = () => {
+  const handleNo = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
 
-  const handleYes = () => {
+  const handleYes = useCallback(() => {
     setOpen(false);
     deleteChore.mutate(Number(id), {
       onSuccess: () => navigate(`/chores`),
     });
-  };
+  }, [deleteChore, id, navigate]);
 
   return (
     <Card>
