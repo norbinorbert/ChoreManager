@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, CircularProgress } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 import ChoreFormFields from '../components/ChoreFormFields';
 import { useChore, useUpdateChore } from '../hooks/useChores';
 import { UpdateChore } from '../types/choreTypes';
@@ -49,6 +50,9 @@ export function UpdateChorePage() {
 
   return (
     <>
+      <Helmet>
+        <title>Update chore #{id}</title>
+      </Helmet>
       <ChoreFormFields
         choreInfo={updatedChore}
         handleChange={handleChange}

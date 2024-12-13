@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert, CircularProgress } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 import { Chore, NewChore } from '../types/choreTypes';
 import ChoreFormFields from '../components/ChoreFormFields';
 import { useCreateChore } from '../hooks/useChores';
@@ -43,6 +44,9 @@ export function NewChorePage() {
 
   return (
     <>
+      <Helmet>
+        <title>Add a new chore</title>
+      </Helmet>
       <ChoreFormFields
         choreInfo={newChore}
         handleChange={handleChange}
