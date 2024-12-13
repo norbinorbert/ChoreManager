@@ -1,15 +1,19 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
-import { Chore } from '../types/choreTypes';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Cancel, CheckCircle } from '@mui/icons-material';
-import { useDeleteChore } from '../hooks/useChores';
 import { useCallback, useState } from 'react';
+import { useDeleteChore } from '../hooks/useChores';
+import { Chore } from '../types/choreTypes';
 import { ConfirmDialog } from './ConfirmDialog';
 
-export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
+type ChoreCardProps = {
+  chore: Chore;
+  showDescription: boolean;
+};
+
+export function ChoreCard(props: ChoreCardProps) {
   const { id } = useParams();
-  const { chore } = props;
-  const { showDescription } = props;
+  const { chore, showDescription } = props;
   const navigate = useNavigate();
   const deleteChore = useDeleteChore(Number(id));
   const [open, setOpen] = useState(false);
@@ -25,7 +29,7 @@ export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
   const handleYes = useCallback(() => {
     setOpen(false);
     deleteChore.mutate(Number(id), {
-      onSuccess: () => navigate(`/chores`),
+      onSuccess: () => navigate('/chores'),
     });
   }, [deleteChore, id, navigate]);
 
@@ -38,7 +42,7 @@ export function ChoreCard(props: { chore: Chore; showDescription: boolean }) {
         <Typography variant="h5" component="div">
           {chore.title}
         </Typography>
-        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>Deadline: {chore.deadline.toString()}</Typography>
+        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>Deadline: {chore.deadline}</Typography>
         {showDescription && <Typography variant="body2">{chore.description}</Typography>}
         <Typography variant="body2">
           {chore.done ? <CheckCircle style={{ color: 'green' }} /> : <Cancel style={{ color: 'red' }} />}

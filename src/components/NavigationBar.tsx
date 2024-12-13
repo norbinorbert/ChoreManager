@@ -6,7 +6,7 @@ export function NavigationBar() {
     <AppBar position="static" elevation={0} sx={{ marginBottom: '15px' }}>
       <Toolbar sx={{ backgroundColor: '#242424' }}>
         <Link
-          to={'/'}
+          to="/"
           style={{
             marginRight: '50px',
             textDecoration: 'none',

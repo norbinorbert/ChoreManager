@@ -21,10 +21,10 @@ export async function createChore(chore: NewChore) {
   return responseChore;
 }
 
-export async function updateChore(id: number, chore: UpdateChore) {
-  return await choreApi.patch(`/chores/${id}`, chore);
+export function updateChore(id: number, chore: UpdateChore) {
+  return choreApi.patch(`/chores/${id}`, chore);
 }
 
-export async function deleteChore(id: number) {
-  return await choreApi.delete(`/chores/${id}`);
+export function deleteChore(id: number) {
+  return choreApi.delete(`/chores/${id}`);
 }

@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HomePage } from './pages/HomePage';
 import { ToDoList } from './pages/ToDoList';
 import { ChoreDetailsPage } from './pages/ChoreDetailsPage';
 import { NewChorePage } from './pages/NewChorePage';
 import { UpdateChorePage } from './pages/UpdateChorePage';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NavigationBar } from './components/NavigationBar';
 
 const queryClient = new QueryClient({

@@ -12,7 +12,7 @@ export function ToDoList() {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-      <Box width={'75vw'}>
+      <Box width="75vw">
         <Grid2 container spacing={2}>
           {chores.map((chore) => (
             <Grid2 key={chore.id} size={{ xs: 12, sm: 6, md: 4 }}>

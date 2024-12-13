@@ -1,6 +1,6 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createChore, deleteChore, getChore, getChores, updateChore } from '../requests/choreRequests';
 import { Chore, NewChore, UpdateChore } from '../types/choreTypes';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useChores() {
   return useQuery<Chore[]>({
@@ -30,7 +30,7 @@ export function useUpdateChore(id: number, chore: UpdateChore) {
   const queryClient = useQueryClient();
   return useMutation<unknown, { response: { data: string } }, { id: number; chore: UpdateChore }>({
     mutationFn: () => updateChore(id, chore),
-    onSuccess: (_, { id }) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['chore', id] });
       queryClient.invalidateQueries({ queryKey: ['chores'] });
     },

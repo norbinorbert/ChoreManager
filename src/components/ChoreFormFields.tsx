@@ -2,7 +2,7 @@ import { Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import { StyledTextField } from '../styled_components/StyledTextField';
 
 type ChoreFormFieldsProps = {
-  choreInfo: { title: string; description: string | null; deadline: Date; priorityLevel: number; done?: boolean };
+  choreInfo: { title: string; description: string | null; deadline: string; priorityLevel: number; done?: boolean };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent) => void;
   submitLabel: string;
@@ -16,7 +16,7 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
       <StyledTextField
         label="Description"
         name="description"
-        value={choreInfo.description}
+        value={choreInfo.description || ''}
         onChange={handleChange}
         multiline
         rows={4}
@@ -39,7 +39,7 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
         slotProps={{ htmlInput: { min: 1 } }}
         required
       />
-      {choreInfo.done != undefined && (
+      {choreInfo.done !== undefined && (
         <FormControlLabel
           control={<Checkbox name="done" checked={choreInfo.done} onChange={handleChange} />}
           label="Done"
