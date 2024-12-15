@@ -52,6 +52,7 @@ export function UpdateChorePage() {
     <>
       <Helmet>
         <title>Update chore #{id}</title>
+        <link type="image/png" rel="icon" href="/src/assets/update_chore.png" />
       </Helmet>
       <ChoreFormFields
         choreInfo={updatedChore}

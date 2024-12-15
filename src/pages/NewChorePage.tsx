@@ -46,6 +46,7 @@ export function NewChorePage() {
     <>
       <Helmet>
         <title>Add a new chore</title>
+        <link type="image/png" rel="icon" href="/src/assets/add_new_chore.png" />
       </Helmet>
       <ChoreFormFields
         choreInfo={newChore}

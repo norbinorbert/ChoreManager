@@ -6,6 +6,7 @@ export function HomePage() {
     <>
       <Helmet>
         <title>Home Page</title>
+        <link type="image/png" rel="icon" href="/src/assets/home_page.png" />
       </Helmet>
       <Typography variant="h2">Welcome to the ChoreManager</Typography>
     </>
