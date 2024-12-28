@@ -17,7 +17,7 @@ export function ChoreDetailsPage() {
     <>
       <Helmet>
         <title>Chore #{id}</title>
-        <link type="image/png" rel="icon" href="/src/assets/view_chore.png" />
+        <link type="image/png" rel="icon" href="/icons/view_chore.png" />
       </Helmet>
       <Grid2 maxWidth="75vw" display="inline-block">
         <ChoreCard chore={chore} showDescription />

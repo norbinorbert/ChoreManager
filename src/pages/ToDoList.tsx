@@ -15,7 +15,7 @@ export function ToDoList() {
     <>
       <Helmet>
         <title>To-Do List</title>
-        <link type="image/png" rel="icon" href="/src/assets/to_do_list.png" />
+        <link type="image/png" rel="icon" href="/icons/to_do_list.png" />
       </Helmet>
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         <Box width="75vw">
