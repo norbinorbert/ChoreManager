@@ -55,6 +55,9 @@ export function ChoreCard(props: ChoreCardProps) {
               Edit
             </Button>
             <Button onClick={handleDelete}>Delete</Button>
+            <Button component={Link} to={`${document.URL}/subtasks`}>
+              Subtasks
+            </Button>
           </>
         ) : (
           <Button component={Link} to={`/chores/${chore.id}`}>

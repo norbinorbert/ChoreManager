@@ -6,6 +6,8 @@ import { ChoreDetailsPage } from './pages/ChoreDetailsPage';
 import { NewChorePage } from './pages/NewChorePage';
 import { UpdateChorePage } from './pages/UpdateChorePage';
 import { NavigationBar } from './components/NavigationBar';
+import { SubtasksPage } from './pages/SubtasksPage';
+import { NewSubtaskPage } from './pages/NewSubtaskPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +29,8 @@ function App() {
           <Route path="/chores/:id" element={<ChoreDetailsPage />} />
           <Route path="/chores/new" element={<NewChorePage />} />
           <Route path="/chores/:id/edit" element={<UpdateChorePage />} />
+          <Route path="/chores/:choreId/subtasks" element={<SubtasksPage />} />
+          <Route path="/chores/:choreId/subtasks/new" element={<NewSubtaskPage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

@@ -43,6 +43,7 @@ export function useDeleteChore(id: number) {
     mutationFn: () => deleteChore(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['chores'] });
+      queryClient.invalidateQueries({ queryKey: ['subtasks', id] });
     },
   });
 }

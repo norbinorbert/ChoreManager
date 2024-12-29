@@ -44,9 +44,27 @@ export function UpdateChorePage() {
     [mutate, id, updatedChore, navigate],
   );
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading)
+    return (
+      <>
+        <Helmet>
+          <title>Update chore #{id}</title>
+          <link type="image/png" rel="icon" href="/icons/update_chore.png" />
+        </Helmet>
+        <CircularProgress />
+      </>
+    );
 
-  if (fetchError || !chore) return <Alert severity="error">Error fetching chore.</Alert>;
+  if (fetchError || !chore)
+    return (
+      <>
+        <Helmet>
+          <title>Error</title>
+          <link type="image/png" rel="icon" href="/icons/update_chore.png" />
+        </Helmet>
+        <Alert severity="error">Error fetching chore.</Alert>
+      </>
+    );
 
   return (
     <>

@@ -1,3 +1,5 @@
+import { Subtask } from './subtaskTypes';
+
 export type Chore = {
   id: number;
   title: string;
@@ -5,6 +7,7 @@ export type Chore = {
   deadline: string;
   priorityLevel: number;
   done: boolean;
+  subtasks: Subtask[] | null;
 };
 
 export type NewChore = {

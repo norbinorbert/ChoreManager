@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Chore, NewChore, UpdateChore } from '../types/choreTypes';
 
-const choreApi = axios.create({
+export const choreApi = axios.create({
   baseURL: 'http://localhost:8080/',
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 });

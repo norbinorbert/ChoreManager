@@ -9,9 +9,27 @@ export function ChoreDetailsPage() {
   const { data, isLoading, isError } = useChore(Number(id));
   const chore = data;
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading)
+    return (
+      <>
+        <Helmet>
+          <title>Chore #{id}</title>
+          <link type="image/png" rel="icon" href="/icons/view_chore.png" />
+        </Helmet>
+        <CircularProgress />
+      </>
+    );
 
-  if (isError || !chore) return <Alert severity="error">Error fetching chore.</Alert>;
+  if (isError || !chore)
+    return (
+      <>
+        <Helmet>
+          <title>Error</title>
+          <link type="image/png" rel="icon" href="/icons/view_chore.png" />
+        </Helmet>
+        <Alert severity="error">Error fetching chore.</Alert>
+      </>
+    );
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { Button, Box, FormControlLabel, Checkbox } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { StyledTextField } from '../styled_components/StyledTextField';
 
 type ChoreFormFieldsProps = {
@@ -48,6 +49,9 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
       <Box sx={{ mt: 2 }}>
         <Button type="submit" variant="contained" color="primary">
           {submitLabel}
+        </Button>
+        <Button component={Link} to={document.URL.substring(0, document.URL.lastIndexOf('/'))}>
+          Cancel
         </Button>
       </Box>
     </Box>
