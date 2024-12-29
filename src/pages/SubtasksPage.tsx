@@ -27,7 +27,7 @@ export function SubtasksPage() {
           <title>Error</title>
           <link type="image/png" rel="icon" href="/icons/view_chore.png" />
         </Helmet>
-        <Alert severity="error">Error finding chore.</Alert>
+        <Alert severity="error">Error finding subtasks.</Alert>
       </>
     );
 

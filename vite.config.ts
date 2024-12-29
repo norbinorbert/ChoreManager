@@ -68,8 +68,19 @@ export default defineConfig({
             options: {
               cacheName: 'static-resources',
               expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 7 * 24 * 60 * 60,
+                maxEntries: 100,
+                maxAgeSeconds: 24 * 60 * 60,
+              },
+            },
+          },
+          {
+            urlPattern: /^http:\/\/localhost\:8080\/chores/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 24 * 60 * 60,
               },
             },
           },
