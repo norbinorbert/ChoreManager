@@ -2,11 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert, CircularProgress } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { Chore, NewChore } from '../types/choreTypes';
 import ChoreFormFields from '../components/ChoreFormFields';
 import { useCreateChore } from '../hooks/useChores';
 
 export function NewChorePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [newChore, setNewChore] = useState<NewChore>({
     title: '',
@@ -45,14 +47,14 @@ export function NewChorePage() {
   return (
     <>
       <Helmet>
-        <title>Add a new chore</title>
+        <title>{t('Add a new chore')}</title>
         <link type="image/png" rel="icon" href="/icons/add_new_chore.png" />
       </Helmet>
       <ChoreFormFields
         choreInfo={newChore}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        submitLabel="Create"
+        submitLabel={t('Create')}
       />
       {isPending && <CircularProgress />}
       {isError && (

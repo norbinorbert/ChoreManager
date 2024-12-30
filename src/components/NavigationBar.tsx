@@ -1,7 +1,11 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function NavigationBar() {
+  const { t } = useTranslation();
+
   return (
     <AppBar position="static" elevation={0} sx={{ marginBottom: '15px' }}>
       <Toolbar sx={{ backgroundColor: '#242424' }}>
@@ -18,11 +22,12 @@ export function NavigationBar() {
           ChoreManager
         </Link>
         <Button variant="text" color="primary" component={Link} to="/chores" sx={{ margin: '3px' }}>
-          To-Do List
+          {t('To-Do List')}
         </Button>
         <Button variant="text" color="primary" component={Link} to="/chores/new" sx={{ margin: '3px' }}>
-          Add New Chore
+          {t('Add New Chore')}
         </Button>
+        <LanguageSwitcher />
       </Toolbar>
     </AppBar>
   );

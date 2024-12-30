@@ -1,6 +1,7 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ConfirmDialog } from './ConfirmDialog';
 import { Subtask } from '../types/subtaskTypes';
 import { useDeleteSubtask } from '../hooks/useSubtasks';
@@ -10,6 +11,7 @@ type SubtaskCardProps = {
 };
 
 export function SubtaskCard(props: SubtaskCardProps) {
+  const { t } = useTranslation();
   const { choreId } = useParams();
   const { subtask } = props;
   const navigate = useNavigate();
@@ -42,10 +44,10 @@ export function SubtaskCard(props: SubtaskCardProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleDelete}>Delete</Button>
+        <Button onClick={handleDelete}>{t('Delete')}</Button>
         <ConfirmDialog
           open={open}
-          title="Are you sure you want to delete the subtask?"
+          title={t('Are you sure you want to delete the subtask?')}
           handleNo={handleNo}
           handleYes={handleYes}
         />

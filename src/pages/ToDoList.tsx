@@ -1,9 +1,11 @@
 import { CircularProgress, Grid2, Alert, Box, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useChores } from '../hooks/useChores';
 import { ChoreCard } from '../components/ChoreCard';
 
 export function ToDoList() {
+  const { t } = useTranslation();
   const { data, isLoading, isError } = useChores();
   const chores = data;
 
@@ -11,7 +13,7 @@ export function ToDoList() {
     return (
       <>
         <Helmet>
-          <title>To-Do List</title>
+          <title>{t('To-Do List')}</title>
           <link type="image/png" rel="icon" href="/icons/to_do_list.png" />
         </Helmet>
         <CircularProgress />
@@ -22,17 +24,17 @@ export function ToDoList() {
     return (
       <>
         <Helmet>
-          <title>Error</title>
+          <title>{t('Error')}</title>
           <link type="image/png" rel="icon" href="/icons/to_do_list.png" />
         </Helmet>
-        <Alert severity="error">Error fetching chores.</Alert>
+        <Alert severity="error">{t('Error fetching chores.')}</Alert>
       </>
     );
 
   return (
     <>
       <Helmet>
-        <title>To-Do List</title>
+        <title>{t('To-Do List')}</title>
         <link type="image/png" rel="icon" href="/icons/to_do_list.png" />
       </Helmet>
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
@@ -47,7 +49,7 @@ export function ToDoList() {
             </Grid2>
           </Box>
         ) : (
-          <Typography>No chores have been created yet</Typography>
+          <Typography>{t('No chores have been created yet')}</Typography>
         )}
       </Box>
     </>

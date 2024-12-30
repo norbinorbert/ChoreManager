@@ -2,12 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Alert, Box, Button, CircularProgress } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { NewSubtask } from '../types/subtaskTypes';
 import { useCreateSubtask } from '../hooks/useSubtasks';
 import { StyledTextField } from '../styled_components/StyledTextField';
 import { useChore } from '../hooks/useChores';
 
 export function NewSubtaskPage() {
+  const { t } = useTranslation();
   const { choreId } = useParams();
   const navigate = useNavigate();
   const [newSubtask, setNewSubtask] = useState<NewSubtask>({
@@ -41,7 +43,9 @@ export function NewSubtaskPage() {
     return (
       <>
         <Helmet>
-          <title>Add a new subtask to chore #{choreId}</title>
+          <title>
+            {t('Add a new subtask to chore')}#{choreId}
+          </title>
           <link type="image/png" rel="icon" href="/icons/add_new_chore.png" />
         </Helmet>
         <CircularProgress />
@@ -52,28 +56,30 @@ export function NewSubtaskPage() {
     return (
       <>
         <Helmet>
-          <title>Error</title>
+          <title>{t('Error')}</title>
           <link type="image/png" rel="icon" href="/icons/add_new_chore.png" />
         </Helmet>
-        <Alert severity="error">Error finding chore.</Alert>
+        <Alert severity="error">{t('Error finding chore.')}</Alert>
       </>
     );
 
   return (
     <>
       <Helmet>
-        <title>Add a new subtask to chore #{choreId}</title>
+        <title>
+          {t('Add a new subtask to chore')}#{choreId}
+        </title>
         <link type="image/png" rel="icon" href="/icons/add_new_chore.png" />
       </Helmet>
 
       <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}>
-        <StyledTextField label="Name" name="name" value={newSubtask.name} onChange={handleChange} required />
+        <StyledTextField label={t('Name')} name="name" value={newSubtask.name} onChange={handleChange} required />
         <Box sx={{ mt: 2 }}>
           <Button type="submit" variant="contained" color="primary">
-            Add subtask
+            {t('Add subtask')}
           </Button>
           <Button component={Link} to={document.URL.substring(0, document.URL.lastIndexOf('/'))}>
-            Cancel
+            {t('Cancel')}
           </Button>
         </Box>
       </Box>

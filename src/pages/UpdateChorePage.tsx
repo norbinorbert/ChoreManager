@@ -2,11 +2,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, CircularProgress } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import ChoreFormFields from '../components/ChoreFormFields';
 import { useChore, useUpdateChore } from '../hooks/useChores';
 import { UpdateChore } from '../types/choreTypes';
 
 export function UpdateChorePage() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const result = useChore(Number(id));
@@ -48,7 +50,9 @@ export function UpdateChorePage() {
     return (
       <>
         <Helmet>
-          <title>Update chore #{id}</title>
+          <title>
+            {t('Update chore')}#{id}
+          </title>
           <link type="image/png" rel="icon" href="/icons/update_chore.png" />
         </Helmet>
         <CircularProgress />
@@ -59,24 +63,26 @@ export function UpdateChorePage() {
     return (
       <>
         <Helmet>
-          <title>Error</title>
+          <title>{t('Error')}</title>
           <link type="image/png" rel="icon" href="/icons/update_chore.png" />
         </Helmet>
-        <Alert severity="error">Error fetching chore.</Alert>
+        <Alert severity="error">{t('Error fetching chore.')}</Alert>
       </>
     );
 
   return (
     <>
       <Helmet>
-        <title>Update chore #{id}</title>
+        <title>
+          {t('Update chore')}#{id}
+        </title>
         <link type="image/png" rel="icon" href="/icons/update_chore.png" />
       </Helmet>
       <ChoreFormFields
         choreInfo={updatedChore}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        submitLabel="Update"
+        submitLabel={t('Update')}
       />
       {isPending && <CircularProgress />}
       {isError && (

@@ -1,6 +1,7 @@
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Cancel, CheckCircle } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import { useCallback, useState } from 'react';
 import { useDeleteChore } from '../hooks/useChores';
 import { Chore } from '../types/choreTypes';
@@ -12,6 +13,7 @@ type ChoreCardProps = {
 };
 
 export function ChoreCard(props: ChoreCardProps) {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { chore, showDescription } = props;
   const navigate = useNavigate();
@@ -42,7 +44,9 @@ export function ChoreCard(props: ChoreCardProps) {
         <Typography variant="h5" component="div">
           {chore.title}
         </Typography>
-        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>Deadline: {chore.deadline}</Typography>
+        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
+          {t('Deadline')}: {chore.deadline}
+        </Typography>
         {showDescription && <Typography variant="body2">{chore.description}</Typography>}
         <Typography variant="body2">
           {chore.done ? <CheckCircle style={{ color: 'green' }} /> : <Cancel style={{ color: 'red' }} />}
@@ -52,21 +56,21 @@ export function ChoreCard(props: ChoreCardProps) {
         {showDescription ? (
           <>
             <Button component={Link} to={`${document.URL}/edit`}>
-              Edit
+              {t('Edit')}
             </Button>
-            <Button onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleDelete}>{t('Delete')}</Button>
             <Button component={Link} to={`${document.URL}/subtasks`}>
-              Subtasks
+              {t('Subtasks')}
             </Button>
           </>
         ) : (
           <Button component={Link} to={`/chores/${chore.id}`}>
-            Details
+            {t('Details')}
           </Button>
         )}
         <ConfirmDialog
           open={open}
-          title="Are you sure you want to delete the chore?"
+          title={t('Are you sure you want to delete the chore?')}
           handleNo={handleNo}
           handleYes={handleYes}
         />

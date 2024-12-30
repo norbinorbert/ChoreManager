@@ -1,5 +1,6 @@
 import { Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { StyledTextField } from '../styled_components/StyledTextField';
 
 type ChoreFormFieldsProps = {
@@ -10,12 +11,13 @@ type ChoreFormFieldsProps = {
 };
 
 function ChoreFormFields(props: ChoreFormFieldsProps) {
+  const { t } = useTranslation();
   const { choreInfo, handleChange, handleSubmit, submitLabel } = props;
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}>
-      <StyledTextField label="Title" name="title" value={choreInfo.title} onChange={handleChange} required />
+      <StyledTextField label={t('Title')} name="title" value={choreInfo.title} onChange={handleChange} required />
       <StyledTextField
-        label="Description"
+        label={t('Description')}
         name="description"
         value={choreInfo.description || ''}
         onChange={handleChange}
@@ -23,7 +25,7 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
         rows={4}
       />
       <StyledTextField
-        label="Deadline"
+        label={t('Deadline')}
         name="deadline"
         type="date"
         value={choreInfo.deadline}
@@ -32,7 +34,7 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
         required
       />
       <StyledTextField
-        label="Priority Level"
+        label={t('Priority Level')}
         name="priorityLevel"
         type="number"
         value={choreInfo.priorityLevel}
@@ -43,7 +45,7 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
       {choreInfo.done !== undefined && (
         <FormControlLabel
           control={<Checkbox name="done" checked={choreInfo.done} onChange={handleChange} />}
-          label="Done"
+          label={t('Done')}
         />
       )}
       <Box sx={{ mt: 2 }}>
@@ -51,7 +53,7 @@ function ChoreFormFields(props: ChoreFormFieldsProps) {
           {submitLabel}
         </Button>
         <Button component={Link} to={document.URL.substring(0, document.URL.lastIndexOf('/'))}>
-          Cancel
+          {t('Cancel')}
         </Button>
       </Box>
     </Box>

@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 type ConfirmDialogProps = {
   open: boolean;
@@ -8,13 +9,14 @@ type ConfirmDialogProps = {
 };
 
 export function ConfirmDialog(props: ConfirmDialogProps) {
+  const { t } = useTranslation();
   return (
     <Dialog open={props.open}>
       <DialogTitle>{props.title}</DialogTitle>
       <DialogActions>
-        <Button onClick={props.handleNo}>No</Button>
+        <Button onClick={props.handleNo}>{t('No')}</Button>
         <Button onClick={props.handleYes} autoFocus>
-          Yes
+          {t('Yes')}
         </Button>
       </DialogActions>
     </Dialog>
