@@ -2,6 +2,7 @@ import { Button, Card, CardActions, CardContent, Typography } from '@mui/materia
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useKeycloak } from '@react-keycloak/web';
 import { ConfirmDialog } from './ConfirmDialog';
 import { Subtask } from '../types/subtaskTypes';
 import { useDeleteSubtask } from '../hooks/useSubtasks';
@@ -11,6 +12,7 @@ type SubtaskCardProps = {
 };
 
 export function SubtaskCard(props: SubtaskCardProps) {
+  const { keycloak } = useKeycloak();
   const { t } = useTranslation();
   const { choreId } = useParams();
   const { subtask } = props;
@@ -44,7 +46,7 @@ export function SubtaskCard(props: SubtaskCardProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={handleDelete}>{t('Delete')}</Button>
+        {keycloak.authenticated && <Button onClick={handleDelete}>{t('Delete')}</Button>}
         <ConfirmDialog
           open={open}
           title={t('Are you sure you want to delete the subtask?')}

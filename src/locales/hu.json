@@ -33,5 +33,11 @@
     "Error fetching chores.": "Hiba a teendők lekérésekor.",
     "No chores have been created yet": "Még nincs teendő létrehozva",
     "Update chore": "Frissítés - Teendő",
-    "Update": "Frissítés"
+    "Update": "Frissítés",
+    "Logged in as:": "Bejelentkezve. Felhasználónév:",
+    "Logout": "Kijelentkezés",
+    "You aren't logged in": "Nem vagy bejelentkezve",
+    "Login": "Bejelentkezés",
+    "You can't view this page because you aren't logged in. Please log in": "Ez az oldal nem elérhető, mert nem vagy bejelentkezve. Kérlek jelentkezz be",
+    "Unauthenticated": "Nincs bejelentkezve"
 }

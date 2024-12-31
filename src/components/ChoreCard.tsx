@@ -2,6 +2,7 @@ import { Button, Card, CardActions, CardContent, Typography } from '@mui/materia
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Cancel, CheckCircle } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import { useKeycloak } from '@react-keycloak/web';
 import { useCallback, useState } from 'react';
 import { useDeleteChore } from '../hooks/useChores';
 import { Chore } from '../types/choreTypes';
@@ -13,6 +14,7 @@ type ChoreCardProps = {
 };
 
 export function ChoreCard(props: ChoreCardProps) {
+  const { keycloak } = useKeycloak();
   const { t } = useTranslation();
   const { id } = useParams();
   const { chore, showDescription } = props;
@@ -55,10 +57,15 @@ export function ChoreCard(props: ChoreCardProps) {
       <CardActions>
         {showDescription ? (
           <>
-            <Button component={Link} to={`${document.URL}/edit`}>
-              {t('Edit')}
-            </Button>
-            <Button onClick={handleDelete}>{t('Delete')}</Button>
+            {keycloak.authenticated && (
+              <>
+                <Button component={Link} to={`${document.URL}/edit`}>
+                  {t('Edit')}
+                </Button>
+
+                <Button onClick={handleDelete}>{t('Delete')}</Button>
+              </>
+            )}
             <Button component={Link} to={`${document.URL}/subtasks`}>
               {t('Subtasks')}
             </Button>

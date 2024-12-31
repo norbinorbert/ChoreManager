@@ -33,5 +33,11 @@
     "Error fetching chores.": "Eroare la încărcarea sarcinilor.",
     "No chores have been created yet": "Nu au fost create încă sarcini",
     "Update chore": "Actualizare - Sarcina",
-    "Update": "Actualizare"
+    "Update": "Actualizare",
+    "Logged in as:": "Autentificat. Utilizator:",
+    "Logout": "Deconectare",
+    "You aren't logged in": "Nu ești autentificat",
+    "Login": "Autentificare",
+    "You can't view this page because you aren't logged in. Please log in": "Nu poți vizualiza această pagină pentru că nu ești autentificat. Te rog să te autentifici",
+    "Unauthenticated": "Neautentificat"
 }

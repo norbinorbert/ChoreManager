@@ -1,11 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useKeycloak } from '@react-keycloak/web';
 import { Alert, Box, Button, CircularProgress, Grid2, Typography } from '@mui/material';
 import { useSubtasks } from '../hooks/useSubtasks';
 import { SubtaskCard } from '../components/SubtaskCard';
 
 export function SubtasksPage() {
+  const { keycloak } = useKeycloak();
   const { t } = useTranslation();
   const { choreId } = useParams();
   const { data, isLoading, isError } = useSubtasks(Number(choreId));
@@ -46,9 +48,11 @@ export function SubtasksPage() {
       <Button component={Link} to={document.URL.substring(0, document.URL.lastIndexOf('/'))}>
         {t('Back')}
       </Button>
-      <Button component={Link} to={`${document.URL}/new`}>
-        {t('Add subtask')}
-      </Button>
+      {keycloak.authenticated && (
+        <Button component={Link} to={`${document.URL}/new`}>
+          {t('Add subtask')}
+        </Button>
+      )}
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         {subtasks && subtasks.length > 0 ? (
           <Box width="75vw" display="flex" justifyContent="center" alignItems="center">

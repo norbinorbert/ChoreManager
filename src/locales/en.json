@@ -33,5 +33,11 @@
     "Error fetching chores.": "Error fetching chores.",
     "No chores have been created yet": "No chores have been created yet",
     "Update chore": "Update - Chore",
-    "Update": "Update"
+    "Update": "Update",
+    "Logged in as:": "Logged in as:",
+    "Logout": "Logout",
+    "You aren't logged in": "You aren't logged in",
+    "Login": "Login",
+    "You can't view this page because you aren't logged in. Please log in": "You can't view this page because you aren't logged in. Please log in",
+    "Unauthenticated": "Unauthenticated"
 }
