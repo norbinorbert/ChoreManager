@@ -64,8 +64,10 @@ export function useDeleteChore(id: number) {
     mutationFn: () => deleteChore(id),
     onSuccess: async () => {
       await deleteFromCache(`chore#${id}-subtasks`);
+      await deleteFromCache(`chore#${id}`);
       await deleteFromCache('chores');
       queryClient.invalidateQueries({ queryKey: ['chores'] });
+      queryClient.invalidateQueries({ queryKey: ['chore', id] });
       queryClient.invalidateQueries({ queryKey: ['subtasks', id] });
     },
   });
