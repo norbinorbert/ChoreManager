@@ -1,23 +1,26 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Alert, CircularProgress } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { Chore, NewChore } from '../types/choreTypes';
 import ChoreFormFields from '../components/ChoreFormFields';
 import { useCreateChore } from '../hooks/useChores';
-import { Alert, CircularProgress } from '@mui/material';
 
 export function NewChorePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [newChore, setNewChore] = useState<NewChore>({
     title: '',
     description: '',
-    deadline: new Date(),
+    deadline: new Date().toISOString().slice(0, 10),
     priorityLevel: 1,
   });
   const { mutate, isPending, isError, error, isSuccess } = useCreateChore(newChore);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewChore((newChore) => {
-      return { ...newChore, [e.target.name]: e.target.value };
+    setNewChore((oldValue) => {
+      return { ...oldValue, [e.target.name]: e.target.value };
     });
   }, []);
 
@@ -43,11 +46,15 @@ export function NewChorePage() {
 
   return (
     <>
+      <Helmet>
+        <title>{t('Add a new chore')}</title>
+        <link type="image/png" rel="icon" href="/icons/add_new_chore.png" />
+      </Helmet>
       <ChoreFormFields
         choreInfo={newChore}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        submitLabel="Create"
+        submitLabel={t('Create')}
       />
       {isPending && <CircularProgress />}
       {isError && (

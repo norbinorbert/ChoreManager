@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Chore, NewChore, UpdateChore } from '../types/choreTypes';
 
-const choreApi = axios.create({
+export const choreApi = axios.create({
   baseURL: 'http://localhost:8080/',
   headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 });
@@ -21,10 +21,10 @@ export async function createChore(chore: NewChore) {
   return responseChore;
 }
 
-export async function updateChore(id: number, chore: UpdateChore) {
-  return await choreApi.patch(`/chores/${id}`, chore);
+export function updateChore(id: number, chore: UpdateChore) {
+  return choreApi.patch(`/chores/${id}`, chore);
 }
 
-export async function deleteChore(id: number) {
-  return await choreApi.delete(`/chores/${id}`);
+export function deleteChore(id: number) {
+  return choreApi.delete(`/chores/${id}`);
 }
